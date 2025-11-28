@@ -6,11 +6,11 @@ pipeline {
             steps{
                 sh '''
                 node -v
-                npm-v
+                npm -v
                 '''
             }
         }
     
     }
-    
+
 }
