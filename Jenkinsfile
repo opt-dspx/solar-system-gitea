@@ -36,7 +36,7 @@ pipeline {
         }
         stage('Build Docker Image'){
             steps{
-                sh 'docker build -t opt-dspx/solar-system-gitea:$GIT_COMIT:'
+                sh 'docker buildx build -t opt-dspx/solar-system-gitea:$GIT_COMIT:'
             }
         }
     
