@@ -19,22 +19,28 @@ pipeline {
                     '''
                     }
                 } 
-              stage('OWASP Dependency Check'){
-                steps{
-                 dependencyCheck additionalArguments: '''
-                 --scan \'./\'
-                 --out \'./\'
-                 --format \'ALL\'
-                 --prettyPrint''', odcInstallation: 'OWASP-DepCheck-10'
-                 dependencyCheckPublisher failedTotalCritical: 1, pattern: 'dependency-check-report.xml', skipNoReportFiles: true
-                 publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, icon: '', keepAll: true, reportDir: './', reportFiles: 'dependency-check-jenkins.html', reportName: 'Dependency Check HTML Report', reportTitles: '', useWrapperFileDirectly: true])
-                }
-              }
+            //   stage('OWASP Dependency Check'){
+            //     steps{
+            //      dependencyCheck additionalArguments: '''
+            //      --scan \'./\'
+            //      --out \'./\'
+            //      --format \'ALL\'
+            //      --prettyPrint''', odcInstallation: 'OWASP-DepCheck-10'
+            //      dependencyCheckPublisher failedTotalCritical: 1, pattern: 'dependency-check-report.xml', skipNoReportFiles: true
+            //      publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, icon: '', keepAll: true, reportDir: './', reportFiles: 'dependency-check-jenkins.html', reportName: 'Dependency Check HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+            //     }
+            //   }
             }
       
         
         }
+        stage('Build Docker Image'){
+            steps{
+                sh 'docker build -t opt-dspx/solar-system-gitea:$GIT_COMIT:'
+            }
+        }
     
     }
+
 
 }
